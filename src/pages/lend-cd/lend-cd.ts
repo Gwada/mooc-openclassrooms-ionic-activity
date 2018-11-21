@@ -3,13 +3,6 @@ import { NavParams, ViewController } from 'ionic-angular';
 import { CD } from '../../models/CD.models';
 import { MyThingsService } from '../../services/myThings.service';
 
-/**
- * Generated class for the LendCdPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-lend-cd',
   templateUrl: 'lend-cd.html',

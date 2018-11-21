@@ -1,7 +1,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>book-list</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onToggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Liste de livres</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -13,7 +18,7 @@
               icon-start
               *ngFor="let book of booksList; let i = index"
               (click)="onLoadBook(i)"
-              [ngClass]="{ 'is-lent': book.isLent, 'is-not-lent': !book.isLent }">
+              [ngClass]="{ 'is-lent': book.isLent }">
         <ion-icon name="checkmark-circle-outline" *ngIf="!book.isLent" color="secondary"></ion-icon>
         <ion-icon name="close-circle" *ngIf="book.isLent" color="danger"></ion-icon>
         {{ book.name }}

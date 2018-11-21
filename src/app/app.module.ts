@@ -12,6 +12,7 @@ import { CdListPage } from '../pages/cd-list/cd-list';
 import { LendBookPage } from '../pages/lend-book/lend-book';
 import { LendCdPage } from '../pages/lend-cd/lend-cd';
 import { MyThingsService } from '../services/myThings.service';
+import { SettingsPage } from '../pages/settings/settings';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MyThingsService } from '../services/myThings.service';
     BookListPage,
     CdListPage,
     LendBookPage,
-    LendCdPage
+    LendCdPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { MyThingsService } from '../services/myThings.service';
     BookListPage,
     CdListPage,
     LendBookPage,
-    LendCdPage
+    LendCdPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,

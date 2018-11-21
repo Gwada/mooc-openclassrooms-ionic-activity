@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { MenuController } from 'ionic-angular';
 
 @Component({
   selector: 'page-settings',
@@ -14,11 +7,9 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(private menuCtrl: MenuController) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  onToggleMenu() {
+    this.menuCtrl.open();
   }
-
 }

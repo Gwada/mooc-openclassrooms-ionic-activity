@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { Book } from '../../models/Book.models';
 import { MyThingsService } from '../../services/myThings.service';
-
-/**
- * Generated class for the LendBookPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-lend-book',
