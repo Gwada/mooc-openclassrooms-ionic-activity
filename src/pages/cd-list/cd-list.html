@@ -19,7 +19,8 @@
             *ngFor="let cd of cdsList; let i = index"
             (click)="onLoadCd(i)"
             [ngClass]="{ 'is-lent': cd.isLent }">
-      <ion-icon name="power" [color]="cd.isLent ? 'danger' : 'secondary'"></ion-icon>
+      <ion-icon name="checkmark-circle-outline" *ngIf="!cd.isLent" color="secondary"></ion-icon>
+      <ion-icon name="close-circle" *ngIf="cd.isLent" color="danger"></ion-icon>
       {{ cd.name }}
     </button>
   </ion-list>
