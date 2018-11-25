@@ -1,9 +1,3 @@
-<!--
-  Generated template for the LendCdPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -21,16 +15,26 @@
     <ion-card-header>{{ cd.name }}</ion-card-header>
     <ion-card-content>
       <p>Auteur : {{ cd.author }}</p>
+      <p *ngIf="cd.isLent">Vous avez prété ce cd à {{ cd.destinataire }}</p>
     </ion-card-content>
   </ion-card>
   <ion-grid>
+    <form [formGroup]=destForm *ngIf="!cd.isLent">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>Nom de l'emprunteur</ion-label>
+          <ion-input type="text" formControlName="destinataire"></ion-input>
+        </ion-item>
+      </ion-list>
+    </form>
+
     <ion-row>
       <ion-col>
         <button ion-button
                 full
                 color="danger"
-                [disabled]="cd.isLent"
-                (click)="onToggleCd()">Preter</button>
+                [disabled]="cd.isLent || (destForm.invalid)"
+                (click)="onSubmitForm()">Preter</button>
       </ion-col>
       <ion-col>
         <button ion-button

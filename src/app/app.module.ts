@@ -13,6 +13,10 @@ import { LendBookPage } from '../pages/lend-book/lend-book';
 import { LendCdPage } from '../pages/lend-cd/lend-cd';
 import { MyThingsService } from '../services/myThings.service';
 import { SettingsPage } from '../pages/settings/settings';
+import { AuthPage } from '../pages/auth/auth';
+import { AuthService } from '../services/auth.service';
+import { AddElementPage } from '../pages/add-element/add-element';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -22,11 +26,14 @@ import { SettingsPage } from '../pages/settings/settings';
     CdListPage,
     LendBookPage,
     LendCdPage,
-    SettingsPage
+    SettingsPage,
+    AuthPage,
+    AddElementPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,12 +43,15 @@ import { SettingsPage } from '../pages/settings/settings';
     CdListPage,
     LendBookPage,
     LendCdPage,
-    SettingsPage
+    SettingsPage,
+    AuthPage,
+    AddElementPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     MyThingsService,
+    AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -17,11 +17,13 @@
       <button ion-item
               icon-start
               *ngFor="let book of booksList; let i = index"
-              (click)="onLoadBook(i)"
+              (click)="onLoadBook(book, i)"
               [ngClass]="{ 'is-lent': book.isLent }">
         <ion-icon name="checkmark-circle-outline" *ngIf="!book.isLent" color="secondary"></ion-icon>
         <ion-icon name="close-circle" *ngIf="book.isLent" color="danger"></ion-icon>
         {{ book.name }}
+        <p *ngIf="book.isLent" text-center>Vous avez prété ce livre à {{ book.destinataire }}</p>
       </button>
     </ion-list>
+    <button ion-button full (click)="onAddElement()">Ajouter un livre</button>
   </ion-content>

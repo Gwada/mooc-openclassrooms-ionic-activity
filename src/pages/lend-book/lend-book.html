@@ -15,16 +15,27 @@
       <ion-card-header>{{ book.name }}</ion-card-header>
       <ion-card-content>
         <p>Auteur : {{ book.author }}</p>
+        <p *ngIf="book.isLent">Vous avez prété ce livre à {{ book.destinataire }}</p>
       </ion-card-content>
     </ion-card>
     <ion-grid>
+
+      <form [formGroup]=destForm *ngIf="!book.isLent">
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Nom de l'emprunteur</ion-label>
+            <ion-input type="text" formControlName="destinataire"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+
       <ion-row>
         <ion-col>
           <button ion-button
                   full
                   color="danger"
-                  [disabled]="book.isLent"
-                  (click)="onToggleBook()">Preter</button>
+                  [disabled]="book.isLent || (destForm.invalid)"
+                  (click)="onSubmitForm()">Preter</button>
         </ion-col>
         <ion-col>
           <button ion-button

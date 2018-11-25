@@ -6,17 +6,28 @@
     </ion-header>
     <ion-content>
         <ion-list>
-            <button ion-item
-                    icon-start
-                    (click)="onNavigate(tabsPage)">
-                <ion-icon name="power"></ion-icon>
-                Appareils
+            <button *ngIf="isAuth" ion-item icon-start (click)="onNavigate(tabsPage)">
+                <ion-icon name="list-box"></ion-icon>
+                Acceder aux listes
             </button>
-            <button ion-item
-                    icon-start
-                    (click)="onNavigate(settingsPage)">
+            <button *ngIf="isAuth" ion-item icon-start (click)="onNavigate(settingsPage)">
                     <ion-icon name="options"></ion-icon>
                     Réglages
+            </button>
+            
+            <button ion-item icon-start (click)="onNavigate(authPage, {mode: 'new'})" *ngIf="!isAuth">
+                <ion-icon name="person-add"></ion-icon>
+                Inscription
+            </button>
+
+            <button ion-item icon-start (click)="onNavigate(authPage, {mode: 'connect'})" *ngIf="!isAuth">
+                <ion-icon name="person"></ion-icon>
+                Connexion
+            </button>
+
+            <button ion-item icon-start (click)="onDisconnect()" *ngIf="isAuth">
+                <ion-icon name="exit"></ion-icon>
+                Déconnexion
             </button>
         </ion-list>
     </ion-content>

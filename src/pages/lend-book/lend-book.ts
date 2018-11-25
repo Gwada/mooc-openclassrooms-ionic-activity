@@ -1,25 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import { Book } from '../../models/Book.models';
 import { MyThingsService } from '../../services/myThings.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-lend-book',
   templateUrl: 'lend-book.html',
 })
-export class LendBookPage {
+export class LendBookPage implements OnInit {
 
-  index: number;
   book: Book;
+  index: number;
+  destForm: FormGroup;
 
   constructor(public navParams: NavParams,
               private viewCtrl: ViewController,
-              private booksService: MyThingsService) {
-  }
+              private booksService: MyThingsService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.book = this.navParams.get('book');
     this.index = this.navParams.get('index');
-    this.book = this.booksService.booksList[this.index];
+    
+    if (!this.book.isLent) {
+      this.initForm();
+    }
+  }
+
+  initForm() {
+    this.destForm = this.formBuilder.group({
+      destinataire: ['', [Validators.required, Validators.minLength(1)]]
+    });
+  }
+
+  onSubmitForm() {
+    const destinataire = this.destForm.get('destinataire').value;
+    
+    this.booksService.setElem('book', this.index, destinataire);
+    this.dismissModal();
   }
 
   dismissModal() {
@@ -27,7 +46,12 @@ export class LendBookPage {
   }
 
   onToggleBook() {
-    this.booksService.toogleLent(this.book);
+    if (this.book.isLent) {
+      this.initForm();
+      this.booksService.setElem('book', this.index, '');
+    }
+    else
+      this.booksService.setElem('book', this.index, this.book.destinataire);
   }
 
 }

@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons>
+      <button ion-button clear (click)="dismissModal()">Annuler</button>
+    </ion-buttons>
+    <ion-title>Ajout de {{ elemetType }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]=elementForm>
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nom du {{ elemetType }}</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Auteur du {{ elemetType }}</ion-label>
+        <ion-input type="text" formControlName="author"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button full (click)="onSubmitForm()" [disabled]="elementForm.invalid">Enregistrer</button>
+  </form>
+  </ion-content>

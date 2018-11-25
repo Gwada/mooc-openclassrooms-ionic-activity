@@ -22,6 +22,8 @@
       <ion-icon name="checkmark-circle-outline" *ngIf="!cd.isLent" color="secondary"></ion-icon>
       <ion-icon name="close-circle" *ngIf="cd.isLent" color="danger"></ion-icon>
       {{ cd.name }}
+      <p *ngIf="cd.isLent" text-center>Vous avez prété ce cd à {{ cd.destinataire }}</p>
     </button>
   </ion-list>
+  <button ion-button full (click)="onAddElement()">Ajouter un cd</button>
 </ion-content>
