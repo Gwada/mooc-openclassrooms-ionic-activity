@@ -139,13 +139,14 @@ export class MyThingsService {
         if (type === 'book') {
             this.booksList[index].destinataire = dest;
             this.booksList[index].isLent = !this.booksList[index].isLent;
+            this.storage.set('books', this.booksList);
+            this.emitBooks();
         }
         else if (type === 'cd') {
             this.cdsList[index].destinataire = dest;
             this.cdsList[index].isLent = !this.cdsList[index].isLent;
+            this.storage.set('cds', this.cdsList);
+            this.emitCds();
         }
-        this.saveData();
-        this.emitBooks();
-        this.emitCds();
     }
 }
