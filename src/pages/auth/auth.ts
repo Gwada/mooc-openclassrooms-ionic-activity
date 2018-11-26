@@ -8,8 +8,7 @@ import { TabsPage } from '../tabs/tabs';
   selector: 'page-auth',
   templateUrl: 'auth.html',
 })
-export class AuthPage implements OnInit
-{
+export class AuthPage implements OnInit {
 
   mode: string;
   authForm: FormGroup;
@@ -19,33 +18,26 @@ export class AuthPage implements OnInit
               public navParams: NavParams,
               private formBuilder: FormBuilder,
               private menuCtrl: MenuController,
-              private authService: AuthService) {
-  }
+              private authService: AuthService) { }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.mode = this.navParams.get('mode');
 
     this.initForm();
   }
 
-  initForm()
-  {
-    this.authForm = this.formBuilder.group(
-      {
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]]
-      }
-    );
+  initForm() {
+    this.authForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
   }
 
-  onToggleMenu()
-  {
+  onToggleMenu() {
     this.menuCtrl.open();
   }
   
-  onSubmitForm()
-  {
+  onSubmitForm() {
     const email = this.authForm.get('email').value;
     const password = this.authForm.get('password').value;
 

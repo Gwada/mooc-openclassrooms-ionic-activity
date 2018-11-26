@@ -6,29 +6,38 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
 @Injectable()
-export class MyThingsService
-{
+export class MyThingsService {
     private booksList: Book[] = [];
     private cdsList: CD[] = [];
     bookList$ = new Subject<Book[]>();
     cdsList$ = new Subject<CD[]>();
 
-    constructor(private storage: Storage) {}
+    constructor(private storage: Storage) {
+        this.fetchList();
+    }
 
-    toogleLent(item: any) { item.isLent = !item.isLent }
+    toogleLent(item: any) {
+        item.isLent = !item.isLent
+    }
 
-    emitBooks() { this.bookList$.next(this.booksList.slice()) }
+    emitBooks() {
+        this.bookList$.next(this.booksList.slice())
+    }
 
-    emitCds() { this.cdsList$.next(this.cdsList.slice()) }
+    emitCds() {
+        this.cdsList$.next(this.cdsList.slice())
+    }
 
     saveBooksDataOnFirebase() {
         return new Promise(
           (resolve, reject) => {
             firebase.database().ref('books').set(this.booksList).then(
-              (data) => {
-                  resolve(data)
+                (data) => {
+                    resolve(data);
                 },
-              (error) => { reject(error) }
+                (error) => {
+                    reject(error);
+                }
             )
           }
         );
@@ -44,7 +53,9 @@ export class MyThingsService
                   this.saveData();
                   resolve('Chargement des livres terminé');
                 },
-                (error) => { reject(error) }
+                (error) => {
+                    reject(error);
+                }
               );
             }
         );
@@ -54,8 +65,12 @@ export class MyThingsService
         return new Promise(
           (resolve, reject) => {
             firebase.database().ref('cds').set(this.cdsList).then(
-              (data) => { resolve(data) },
-              (error) => { reject(error) }
+                (data) => {
+                    resolve(data);
+                },
+                (error) => {
+                    reject(error);
+                }
             )
           }
         );
@@ -71,7 +86,9 @@ export class MyThingsService
                   this.saveData();
                   resolve('Chargement des cds terminé');
                 },
-                (error) => { reject(error) }
+                (error) => {
+                    reject(error);
+                }
               );
             }
         );
@@ -87,17 +104,22 @@ export class MyThingsService
             (bookList) => {
                 bookList && bookList.length ? this.booksList = bookList.slice() : 0;
                 this.emitBooks();
-                this.storage.get('cds').then(
-                    (cdList) => {
-                        cdList && cdList.length ? this.cdsList = cdList.slice() : 0;
-                        this.emitCds();
-                    }
-                ).catch(
-                    (reason) => { console.log(`erreur lors de la recuperation des cds : ${reason}`) }
-                );
             }
         ).catch(
-            (reason) => { console.log(`erreur lors de la recuperation des livres : ${reason}`) }
+            (reason) => {
+                console.log(`erreur lors de la recuperation des livres : ${reason}`);
+            }
+        );
+
+        this.storage.get('cds').then(
+            (cdList) => {
+                cdList && cdList.length ? this.cdsList = cdList.slice() : 0;
+                this.emitCds();
+            }
+        ).catch(
+            (reason) => {
+                console.log(`erreur lors de la recuperation des cds : ${reason}`);
+            }
         );
     }
 
@@ -117,8 +139,13 @@ export class MyThingsService
         if (type === 'book') {
             this.booksList[index].destinataire = dest;
             this.booksList[index].isLent = !this.booksList[index].isLent;
-            this.saveData();
-            this.emitBooks();
         }
+        else if (type === 'cd') {
+            this.cdsList[index].destinataire = dest;
+            this.cdsList[index].isLent = !this.cdsList[index].isLent;
+        }
+        this.saveData();
+        this.emitBooks();
+        this.emitCds();
     }
 }

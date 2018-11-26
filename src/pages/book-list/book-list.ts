@@ -10,8 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'page-book-list',
   templateUrl: 'book-list.html',
 })
-export class BookListPage implements OnInit, OnDestroy
-{
+export class BookListPage implements OnInit, OnDestroy {
 
   booksList: Book[] = [];
   booksListSubscription: Subscription;
@@ -26,6 +25,8 @@ export class BookListPage implements OnInit, OnDestroy
         this.booksList = books;
       }
     );
+
+    this.bookService.emitBooks();
   }
 
   ionViewWillEnter() {
@@ -34,11 +35,13 @@ export class BookListPage implements OnInit, OnDestroy
 
   onLoadBook(book: Book, index: number) {
     const modal = this.modalCtrl.create(LendBookPage, {book: book, index: index});
+
     modal.present();
   }
 
   onAddElement() {
     const modal = this.modalCtrl.create(AddElementPage, {element: 'livre'});
+
     modal.present();
   }
 

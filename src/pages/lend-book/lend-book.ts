@@ -22,10 +22,8 @@ export class LendBookPage implements OnInit {
   ngOnInit(): void {
     this.book = this.navParams.get('book');
     this.index = this.navParams.get('index');
-    
-    if (!this.book.isLent) {
-      this.initForm();
-    }
+
+    !this.book.isLent ? this.initForm() : null;
   }
 
   initForm() {

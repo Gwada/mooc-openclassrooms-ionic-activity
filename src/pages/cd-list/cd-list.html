@@ -17,7 +17,7 @@
     <button ion-item
             icon-start
             *ngFor="let cd of cdsList; let i = index"
-            (click)="onLoadCd(i)"
+            (click)="onLoadCd(cd, i)"
             [ngClass]="{ 'is-lent': cd.isLent }">
       <ion-icon name="checkmark-circle-outline" *ngIf="!cd.isLent" color="secondary"></ion-icon>
       <ion-icon name="close-circle" *ngIf="cd.isLent" color="danger"></ion-icon>

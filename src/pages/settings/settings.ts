@@ -61,16 +61,16 @@ export class SettingsPage {
 
   onSaveData() {
     this.mythingsService.saveBooksDataOnFirebase().then(
-      (resp) => {
-        console.log(resp);
+      () => {
+        console.log('Livres sauvegardées sur firebase');
       },
       (error) => {
         console.log(error);
       }
     );
     this.mythingsService.saveCdsDataOnFirebase().then(
-      (resp) => {
-        console.log(resp);
+      () => {
+        console.log('Cds sauvegardées sur firebase');
       },
       (error) => {
         console.log(error);

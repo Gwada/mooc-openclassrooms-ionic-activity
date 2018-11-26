@@ -11,7 +11,5 @@ export class TabsPage {
   tab1Root = BookListPage;
   tab2Root = CdListPage;
 
-  constructor() {
-
-  }
+  constructor() { }
 }

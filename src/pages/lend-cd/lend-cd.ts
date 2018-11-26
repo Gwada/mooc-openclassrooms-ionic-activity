@@ -24,9 +24,7 @@ export class LendCdPage implements OnInit
     this.cd = this.navParams.get('cd');
     this.index = this.navParams.get('index');
   
-    if (!this.cd.isLent) {
-      this.initForm();
-    }
+    !this.cd.isLent ? this.initForm() : null;
   }
 
   initForm() {
@@ -35,28 +33,24 @@ export class LendCdPage implements OnInit
     });
   }
 
-  onSubmitForm()
-  {
+  onSubmitForm() {
     const destinataire = this.destForm.get('destinataire').value;
 
-    this.cd.destinataire = destinataire;
-    this.onToggleCd();
+    this.cdsService.setElem('cd', this.index, destinataire);
     this.dismissModal();
   }
 
-  dismissModal()
-  {
+  dismissModal() {
     this.viewCtrl.dismiss();
   }
 
-  onToggleCd()
-  {
-    if (this.cd.isLent)
-    {
+  onToggleCd() {
+    if (this.cd.isLent) {
       this.initForm();
-      this.cd.destinataire = '';
+      this.cdsService.setElem('cd', this.index, '');
     }
-    this.cdsService.toogleLent(this.cd);
+    else
+      this.cdsService.setElem('book', this.index, this.cd.destinataire);
   }
 
 }

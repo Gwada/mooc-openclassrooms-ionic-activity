@@ -9,8 +9,7 @@ import { MyThingsService } from '../../services/myThings.service';
   selector: 'page-add-element',
   templateUrl: 'add-element.html',
 })
-export class AddElementPage implements OnInit
-{
+export class AddElementPage implements OnInit {
 
   elemetType: string;
   elementForm: FormGroup;
@@ -20,40 +19,31 @@ export class AddElementPage implements OnInit
               public navParams: NavParams,
               private viewCtrl: ViewController,
               private formBuilder: FormBuilder,
-              private myThingsService: MyThingsService) {
-  }
+              private myThingsService: MyThingsService) { }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.elemetType = this.navParams.get('element');
+
     this.initForm();
   }
 
-  initForm()
-  {
-    this.elementForm = this.formBuilder.group(
-      {
-        name: ['', [Validators.required, Validators.minLength(1)]],
-        author: ['', [Validators.required, Validators.minLength(1)]]
-      }
-    );
+  initForm() {
+    this.elementForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(1)]],
+      author: ['', [Validators.required, Validators.minLength(1)]]
+    });
   }
 
-  onSubmitForm()
-  {
+  onSubmitForm() {
     const name = this.elementForm.get('name').value;
     const author = this.elementForm.get('author').value;
 
-    if (this.elemetType === 'livre')
-    {
+    if (this.elemetType === 'livre') {
       this.newElement = new Book(name, author);
-
       this.myThingsService.addBook(this.newElement);
     }
-    else
-    {
+    else {
       this.newElement = new CD(name, author);
-
       this.myThingsService.addCd(this.newElement);
     }
     this.dismissModal();

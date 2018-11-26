@@ -17,29 +17,29 @@ export class CdListPage implements OnInit, OnDestroy {
 
   constructor(private cdService: MyThingsService,
               private modalCtrl: ModalController,
-              private menuCtrl: MenuController) {
-  }
+              private menuCtrl: MenuController) { }
 
   ngOnInit() {
-    this.cdService.fetchList();
     this.cdsListSubscription = this.cdService.cdsList$.subscribe(
-      (cd: CD[]) => {
-        this.cdsList = cd;
-      }
+      (cd: CD[]) => { this.cdsList = cd; }
     );
+
+    this.cdService.fetchList();
   }
 
   ionViewWillEnter() {
     this.cdService.emitCds();
   }
 
-  onLoadCd(index: number) {
-    let modal = this.modalCtrl.create(LendCdPage, {cd: this.cdsList[index]});
+  onLoadCd(cd: CD, index: number) {
+    let modal = this.modalCtrl.create(LendCdPage, {cd: cd, index: index});
+
     modal.present();
   }
 
   onAddElement() {
     const modal = this.modalCtrl.create(AddElementPage, {element: 'cd'});
+
     modal.present();
   }
 
